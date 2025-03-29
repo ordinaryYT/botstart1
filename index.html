@@ -1,70 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fortnite Bot Controller</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fortnite Bot Controller</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Fortnite Bot Controller</h1>
-        <p>Click the button below to start the bots (might take 5-20 minutes).</p>
-        <button class="start-button" id="startBtn">Start</button>
-        <button class="stop-button" id="stopBtn">Stop</button>
-        <div id="status" class="status">Ready to start bots</div>
-
-        <div class="bots-section">
-            <div class="bot-card">
-                <div class="bot-icon">1</div>
-                <div class="bot-name">OGsbot1</div>
-                <div class="bot-description">Drops Tilted Towers every time. Still dies first.</div>
-            </div>
-            <!-- Add all your other bot cards here -->
-        </div>
+  <div class="container">
+    <h1>Fortnite Bot Controller</h1>
+    <p>Click below to control your 20 Fortnite lobby bots</p>
+    
+    <div class="button-group">
+      <button id="startBtn" class="control-button start">Start Bots</button>
+      <button id="stopBtn" class="control-button stop">Stop Bots</button>
     </div>
+    
+    <div id="status" class="status">🟢 System Ready</div>
+    
+    <div class="bots-section">
+      <!-- Bot cards go here -->
+      <div class="bot-card">
+        <div class="bot-icon">1</div>
+        <div class="bot-name">OGsbot1</div>
+        <div class="bot-description">Drops Tilted Towers every time. Still dies first.</div>
+      </div>
+      <!-- Add more bot cards as needed -->
+    </div>
+  </div>
 
-    <script>
-        const startBtn = document.getElementById('startBtn');
-        const stopBtn = document.getElementById('stopBtn');
-        const statusEl = document.getElementById('status');
+  <script>
+    const startBtn = document.getElementById('startBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const statusEl = document.getElementById('status');
 
-        function updateStatus(message, isError = false) {
-            statusEl.textContent = message;
-            statusEl.className = isError ? 'status error' : 'status';
-        }
+    async function callAPI(action) {
+      statusEl.textContent = `⏳ ${action === 'start' ? 'Starting' : 'Stopping'} bots...`;
+      statusEl.className = 'status processing';
 
-        async function sendCommand(command) {
-            updateStatus(`${command === 'start' ? 'Starting' : 'Stopping'} bots...`);
-            
-            try {
-                const response = await fetch(`/api/${command}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
+      try {
+        const response = await fetch(`/api/${action}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' }
+        });
 
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
+        if (!response.ok) throw new Error('Network error');
+        
+        const data = await response.json();
+        if (!data.success) throw new Error(data.error);
 
-                const data = await response.json();
-                
-                if (data.success) {
-                    updateStatus(data.message);
-                    alert(`${command === 'start' ? 'Started' : 'Stopped'} bots successfully!`);
-                } else {
-                    throw new Error(data.error || 'Unknown error occurred');
-                }
-            } catch (error) {
-                updateStatus(`Error: ${error.message}`, true);
-                alert(`Failed to ${command} bots: ${error.message}`);
-            }
-        }
+        statusEl.textContent = data.message;
+        statusEl.className = 'status success';
+        alert(data.message);
+      } catch (error) {
+        statusEl.textContent = `❌ Error: ${error.message}`;
+        statusEl.className = 'status error';
+        alert(`Failed: ${error.message}`);
+      }
+    }
 
-        startBtn.addEventListener('click', () => sendCommand('start'));
-        stopBtn.addEventListener('click', () => sendCommand('stop'));
-    </script>
+    startBtn.addEventListener('click', () => callAPI('start'));
+    stopBtn.addEventListener('click', () => callAPI('stop'));
+  </script>
 </body>
 </html>

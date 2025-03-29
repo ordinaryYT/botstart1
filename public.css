@@ -1,121 +1,78 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* General Styles */
 body {
-    background-color: #0a0a0a;
-    color: #ffffff;
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 20px;
-    text-align: center;
+  background-color: #0a0a0a;
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 20px;
 }
 
 .container {
-    max-width: 1200px;
-    width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    font-weight: bold;
+/* Buttons */
+.control-button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: all 0.3s;
 }
 
-p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    color: #a0a0a0;
-}
+.start { background-color: #4CAF50; }
+.stop { background-color: #f44336; }
+.control-button:hover { opacity: 0.9; }
 
-.start-button {
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-bottom: 20px;
-    width: 200px;
-}
-
-.stop-button {
-    background-color: #dc3545;
-    color: #ffffff;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-bottom: 20px;
-    width: 200px;
-}
-
-.start-button:hover {
-    background-color: #0056b3;
-}
-
-.stop-button:hover {
-    background-color: #bb2d3b;
-}
-
+/* Status Messages */
 .status {
-    margin-top: 20px;
-    font-size: 1.1rem;
-    color: #4CAF50;
+  margin: 20px 0;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
 }
 
-.status.error {
-    color: #f44336;
-}
+.processing { background-color: #FFA500; color: #000; }
+.success { background-color: #4CAF50; }
+.error { background-color: #f44336; }
 
+/* Bot Cards */
 .bots-section {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    width: 100%;
-    margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
 }
 
 .bot-card {
-    background-color: #1a1a1a;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: left;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.bot-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: left;
 }
 
 .bot-icon {
-    width: 50px;
-    height: 50px;
-    background-color: #007bff;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
+  width: 50px;
+  height: 50px;
+  background-color: #007bff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
 
 .bot-name {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
 }
 
 .bot-description {
-    font-size: 1rem;
-    color: #a0a0a0;
+  color: #a0a0a0;
+  font-size: 0.9rem;
 }

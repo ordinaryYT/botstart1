@@ -1,9 +1,6 @@
 const FNLB = require('fnlb');
 
-module.exports = async (req, res) => {
-  // Set proper content type
-  res.setHeader('Content-Type', 'application/json');
-  
+export default async (req, res) => {
   try {
     if (req.method !== 'POST') {
       return res.status(405).json({ error: 'Method not allowed' });
@@ -18,12 +15,13 @@ module.exports = async (req, res) => {
 
     return res.status(200).json({ 
       success: true,
-      message: 'Started 20 bots successfully' 
+      message: '✅ Started 20 bots successfully!'
     });
   } catch (error) {
+    console.error('Bot start error:', error);
     return res.status(500).json({ 
       success: false,
-      error: error.message 
+      error: error.message || 'Failed to start bots'
     });
   }
 };
