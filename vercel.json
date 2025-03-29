@@ -20,8 +20,14 @@
   ],
   "routes": [
     {
-      "src": "/api/(start|stop)",
-      "dest": "/startStopBot.js"
+      "src": "/api/start",
+      "dest": "/startStopBot.js",
+      "methods": ["POST"]
+    },
+    {
+      "src": "/api/stop",
+      "dest": "/startStopBot.js",
+      "methods": ["POST"]
     },
     {
       "src": "/(.*)",
