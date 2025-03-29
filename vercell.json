@@ -2,22 +2,34 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/*.js",
+      "src": "startStopBot.js",
       "use": "@vercel/node"
     },
     {
-      "src": "public/**",
+      "src": "index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "javascript.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "public.css",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/",
-      "dest": "/public/index.html"
+      "src": "/api/start",
+      "dest": "/startStopBot.js"
     },
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "src": "/api/stop",
+      "dest": "/startStopBot.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
