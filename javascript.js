@@ -4,20 +4,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const statusEl = document.getElementById('status');
 
   async function controlBots(action) {
+    statusEl.textContent = `${action}ing bots...`;
+    
     try {
-      statusEl.textContent = `${action}ing bots...`;
       const response = await fetch(`/api/${action}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }
       });
 
-      if (!response.ok) {
-        throw new Error(await response.text());
-      }
-
       const data = await response.json();
-      statusEl.textContent = data.message;
-      alert(data.message);
+      
+      if (data.success) {
+        statusEl.textContent = data.message;
+        alert(data.message);
+      } else {
+        throw new Error(data.error || 'Unknown error');
+      }
     } catch (error) {
       statusEl.textContent = `Error: ${error.message}`;
       alert(`Failed to ${action} bots: ${error.message}`);
