@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fortnite Bot Controller</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Fortnite Bot Controller</h1>
+    <p>Manage your lobby bots with one click</p>
+    
+    <div class="button-group">
+      <button id="startBtn" class="btn start">Start 20 Bots</button>
+      <button id="stopBtn" class="btn stop">Stop All Bots</button>
+    </div>
+    
+    <div id="status" class="status">System ready</div>
+    
+    <div class="bot-grid">
+      <div class="bot-card">
+        <div class="bot-icon">🤖</div>
+        <h3>OGsbot1</h3>
+        <p>Drops Tilted Towers every time. Still dies first.</p>
+      </div>
+      <!-- Add more bot cards as needed -->
+    </div>
+  </div>
+
+  <script>
+    const startBtn = document.getElementById('startBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const statusEl = document.getElementById('status');
+
+    function updateStatus(message, isError = false) {
+      statusEl.textContent = message;
+      statusEl.className = isError ? 'status error' : 'status success';
+    }
+
+    async function controlBots(action) {
+      const endpoint = `/api/${action}-bots`;
+      updateStatus(`${action === 'start' ? 'Starting' : 'Stopping'} bots...`);
+      
+      try {
+        const response = await fetch(endpoint, { method: 'POST' });
+        const data = await response.json();
+        
+        if (data.success) {
+          updateStatus(data.message);
+        } else {
+          throw new Error(data.error || 'Unknown error');
+        }
+      } catch (error) {
+        updateStatus(`Error: ${error.message}`, true);
+      }
+    }
+
+    startBtn.addEventListener('click', () => controlBots('start'));
+    stopBtn.addEventListener('click', () => controlBots('stop'));
+  </script>
+</body>
+</html>
