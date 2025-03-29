@@ -1,21 +1,23 @@
-/* General Styles */
 body {
-  background-color: #0a0a0a;
-  color: #ffffff;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #121212;
+  color: white;
   margin: 0;
   padding: 20px;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
   text-align: center;
 }
 
-/* Buttons */
+.button-group {
+  margin: 30px 0;
+}
+
 .control-button {
-  padding: 12px 25px;
+  padding: 12px 24px;
   border: none;
   border-radius: 5px;
   font-size: 16px;
@@ -26,21 +28,18 @@ body {
 
 .start { background-color: #4CAF50; }
 .stop { background-color: #f44336; }
-.control-button:hover { opacity: 0.9; }
+.control-button:hover { opacity: 0.8; }
 
-/* Status Messages */
 .status {
   margin: 20px 0;
   padding: 10px;
   border-radius: 5px;
-  font-weight: bold;
 }
 
 .processing { background-color: #FFA500; color: #000; }
-.success { background-color: #4CAF50; }
-.error { background-color: #f44336; }
+.success { background-color: #2e7d32; }
+.error { background-color: #c62828; }
 
-/* Bot Cards */
 .bots-section {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
